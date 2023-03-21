@@ -23,7 +23,7 @@ public class Item
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer item_Id;
 
-	private String item_name;
+	private String item_names;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Category rest_category;
