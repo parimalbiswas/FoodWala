@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,11 @@ public class Item
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer item_Id;
 
-	private String item_name;
+	private String item_names;
 
-	//private Category rest_category;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Category rest_category;
+
 
 	private Integer quentity;
 
