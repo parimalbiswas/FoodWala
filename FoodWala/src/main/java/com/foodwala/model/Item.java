@@ -1,11 +1,14 @@
 package com.foodwala.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +36,7 @@ public class Item
 
 	private Double cost;
 
-	@ManyToOne(cascade = CascadeType.DETACH)
-	private Restaurant restaurant;
+	@ManyToMany(cascade = CascadeType.DETACH)
+	private List<Restaurant> restaurant= new ArrayList<>();
 
 }

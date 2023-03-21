@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class Restaurant
 	@OneToOne(cascade=CascadeType.ALL)
 	private Address rest_address;
 
-	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
+	@ManyToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
 	private List<Item> items = new ArrayList<>();
 
 	private String manager_name;
