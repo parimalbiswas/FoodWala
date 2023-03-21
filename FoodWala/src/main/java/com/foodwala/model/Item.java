@@ -24,7 +24,7 @@ public class Item
 
 	private String item_name;
 
-	private Category rest_category;
+	//private Category rest_category;
 
 	private Integer quentity;
 

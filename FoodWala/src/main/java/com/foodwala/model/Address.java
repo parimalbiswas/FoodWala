@@ -39,5 +39,7 @@ public class Address {
 	@OneToOne(mappedBy = "address")
 	private Customer customer;
 
-
+    @OneToOne(mappedBy="rest_address")
+	private Restaurant restaurant;
+	
 }
