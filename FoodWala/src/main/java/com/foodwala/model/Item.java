@@ -32,7 +32,7 @@ public class Item
 	private Category rest_category;
 
 
-	private Integer quentity;
+	private Integer quantity;
 
 	private Double cost;
 
