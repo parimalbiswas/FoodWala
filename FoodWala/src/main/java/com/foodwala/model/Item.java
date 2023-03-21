@@ -28,6 +28,7 @@ public class Item
 	@OneToOne(cascade = CascadeType.ALL)
 	private Category rest_category;
 
+
 	private Integer quentity;
 
 	private Double cost;

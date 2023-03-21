@@ -29,7 +29,7 @@ public class Restaurant
 
 	private String rest_name;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Address rest_address;
 
 	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
