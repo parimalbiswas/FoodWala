@@ -1,11 +1,9 @@
 package com.foodwala.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,21 +14,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item
+public class Category
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer item_Id;
+	private Integer category_Id;
 
-	private String item_name;
-
-	private Category rest_category;
-
-	private Integer quentity;
-
-	private Double cost;
-
-	@ManyToOne(cascade = CascadeType.DETACH)
-	private Restaurant restaurant;
+	private String category_name;
 
 }
