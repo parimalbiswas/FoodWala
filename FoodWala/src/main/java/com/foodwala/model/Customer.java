@@ -16,27 +16,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
-	
+public class Customer
+{
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private String mobileNumber;
-	
-	
+
 	private String email;
-	
-	
+
 	private String password;
-	
-	
-	 @OneToOne(cascade = CascadeType.ALL)
-     private Address address;
-	
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address;
 
 }
