@@ -8,11 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-<<<<<<< Updated upstream
-import jakarta.persistence.OneToMany;
-=======
+
 import jakarta.persistence.ManyToMany;
->>>>>>> Stashed changes
+
+import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,14 +33,11 @@ public class Restaurant
 
 	private String rest_name;
 
-<<<<<<< Updated upstream
-	@OneToOne
-=======
-	@OneToOne(cascade = CascadeType.ALL)
->>>>>>> Stashed changes
+
+	@OneToOne(cascade=CascadeType.ALL)
 	private Address rest_address;
 
-	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
+	@ManyToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
 	private List<Item> items = new ArrayList<>();
 
 	private String manager_name;

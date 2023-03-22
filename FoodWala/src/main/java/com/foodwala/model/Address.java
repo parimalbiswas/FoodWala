@@ -36,8 +36,10 @@ public class Address {
 
 	private String pincode;
 	
-	@OneToOne(mappedBy = "address")
-	private Customer customer;
-
-
+//	@OneToOne(mappedBy = "address")
+//	private Customer customer;
+//
+//    @OneToOne(mappedBy="rest_address")
+//	private Restaurant restaurant;
+	
 }
