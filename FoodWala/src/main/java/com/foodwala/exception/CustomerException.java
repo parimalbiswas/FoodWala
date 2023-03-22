@@ -1,13 +1,13 @@
 package com.foodwala.exception;
 
-public class CustomerNotFoundException extends Exception{
+public class CustomerException extends Exception{
 
-	public CustomerNotFoundException() {
+	public CustomerException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerNotFoundException(String message) {
+	public CustomerException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
