@@ -11,14 +11,12 @@ import com.foodwala.model.Restaurant;
 public interface RestaurantService
 {
 
-	public Restaurant addRestaurant(Restaurant restaurant);
+	public Restaurant addRestaurant(Restaurant restaurant) throws RestaurantException;
 
-	public Restaurant updateRestaurant(Restaurant restaurant);
+	public Restaurant updateRestaurant(Restaurant restaurant) throws RestaurantException;
 
-	public Restaurant deleteRestaurant(Restaurant restaurant);
+	public Restaurant deleteRestaurant(Integer rest_Id) throws RestaurantException;
 
 	public Restaurant viewRestaurant(Integer rest_Id) throws ResolutionException;
-
-	public Restaurant viewAllRestaurant() throws RestaurantException;
 
 }
