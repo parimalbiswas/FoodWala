@@ -8,8 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.ManyToMany;
+
 import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +32,7 @@ public class Restaurant
 	private Integer rest_Id;
 
 	private String rest_name;
+
 
 	@OneToOne(cascade=CascadeType.ALL)
 	private Address rest_address;
