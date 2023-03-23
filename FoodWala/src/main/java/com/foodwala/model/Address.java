@@ -35,6 +35,7 @@ public class Address {
 	private String State;
 
 	private String pincode;
+<<<<<<< Updated upstream
 	
 //	@OneToOne(mappedBy = "address")
 //	private Customer customer;
@@ -42,4 +43,6 @@ public class Address {
 //    @OneToOne(mappedBy="rest_address")
 //	private Restaurant restaurant;
 	
+=======
+>>>>>>> Stashed changes
 }

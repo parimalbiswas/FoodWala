@@ -1,7 +1,6 @@
 package com.foodwala.service;
 
 import java.lang.module.ResolutionException;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +18,7 @@ public class RestaurantServiceImpl implements RestaurantService
 	@Override
 	public Restaurant addRestaurant(Restaurant restaurant) throws RestaurantException
 	{
-		Optional<Restaurant> opt = restRepo.findById(restaurant.getRest_Id());
-
-		if (opt.isEmpty())
-		{
-			return restRepo.save(restaurant);
-		}
-		else
-		{
-			throw new RestaurantException(
-					" Resturent already registered with the exist id  ==> " + restaurant.getRest_Id());
-		}
-
+		return restRepo.save(restaurant);
 	}
 
 	@Override
