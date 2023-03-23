@@ -19,14 +19,20 @@ public class ItemServiceImpl implements ItemService
 	public Item addItem(Item item) throws ItemException
 	{
 		return iRepo.save(item);
-
 	}
 
 	@Override
 	public Item updateItem(Item item) throws ItemException
 	{
+		Item existItem = iRepo.findById(item.getItem_Id())
+				.orElseThrow(() -> new ItemException("Item not found with this Id"));
 
-		return null;
+		existItem.setCost(item.getCost());
+		existItem.setItem_names(item.getItem_names());
+		existItem.setQuantity(item.getQuantity());
+		existItem.setRest_category(item.getRest_category());
+
+		return iRepo.save(existItem);
 	}
 
 	@Override
