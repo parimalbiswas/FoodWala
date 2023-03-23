@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +29,7 @@ public class Restaurant
 
 	private String rest_name;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address rest_address;
 
 	@ManyToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
@@ -38,6 +37,6 @@ public class Restaurant
 
 	private String manager_name;
 
-	private String contact_name;
+	private String contact_number;
 
 }
