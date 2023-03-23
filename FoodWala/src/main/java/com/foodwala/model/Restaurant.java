@@ -3,6 +3,8 @@ package com.foodwala.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class Restaurant
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address rest_address;
 
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.DETACH, mappedBy = "restaurant")
 	private List<Item> items = new ArrayList<>();
 

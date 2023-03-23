@@ -3,6 +3,8 @@ package com.foodwala.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,12 +33,12 @@ public class Item
 	@OneToOne(cascade = CascadeType.ALL)
 	private Category rest_category;
 
-
 	private Integer quantity;
 
 	private Double cost;
 
-	@ManyToMany(cascade = CascadeType.DETACH)
-	private List<Restaurant> restaurant= new ArrayList<>();
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Restaurant> restaurant = new ArrayList<>();
 
 }
