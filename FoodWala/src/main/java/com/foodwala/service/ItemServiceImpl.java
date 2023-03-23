@@ -67,4 +67,14 @@ public class ItemServiceImpl implements ItemService
 		return items;
 	}
 
+	@Override
+	public Item increaseQuantityItem(Integer qnty, Integer item_id) throws ItemException
+	{
+		Item existItem = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+		existItem.setQuantity(qnty);
+
+		return iRepo.save(existItem);
+	}
+
 }

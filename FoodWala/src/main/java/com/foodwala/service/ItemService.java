@@ -20,4 +20,6 @@ public interface ItemService
 
 	public List<Item> viewAllItem() throws ItemException;
 
+	public Item increaseQuantityItem(Integer qnty, Integer item_id) throws ItemException;
+
 }
