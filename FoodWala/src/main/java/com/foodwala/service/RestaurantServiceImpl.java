@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foodwala.exception.RestaurantException;
+import com.foodwala.model.Address;
 import com.foodwala.model.Restaurant;
+import com.foodwala.repository.AddressRepo;
 import com.foodwala.repository.RestaurantRepo;
 
 @Service
@@ -16,33 +18,44 @@ public class RestaurantServiceImpl implements RestaurantService
 	@Autowired
 	private RestaurantRepo restRepo;
 
+	@Autowired
+	private AddressRepo addRepo;
 	@Override
 	public Restaurant addRestaurant(Restaurant restaurant) throws RestaurantException
 	{
-		Optional<Restaurant> opt = restRepo.findById(restaurant.getRest_Id());
-
-		if (opt.isEmpty())
-		{
+		
+		
 			return restRepo.save(restaurant);
-		}
-		else
-		{
-			throw new RestaurantException(
-					" Resturent already registered with the exist id  ==> " + restaurant.getRest_Id());
-		}
-
+		
+		
 	}
 
 	@Override
 	public Restaurant updateRestaurant(Restaurant restaurant) throws RestaurantException
 	{
+
+
 		Restaurant existrestaurant = restRepo.findById(restaurant.getRest_Id()).orElseThrow(
 				() -> new ResolutionException("Resturent is not present with this Id ==> " + restaurant.getRest_Id()));
 
 		existrestaurant.setContact_number(restaurant.getContact_number());
 		existrestaurant.setManager_name(restaurant.getManager_name());
-		existrestaurant.setRest_address(restaurant.getRest_address());
 		existrestaurant.setRest_name(restaurant.getRest_name());
+		
+		
+		Address existAdreess = addRepo.findById(existrestaurant.getRest_address().getId()).orElseThrow(()->new ResolutionException("Address NOt FOund"));
+		existAdreess.setArea(restaurant.getRest_address().getArea());
+		existAdreess.setBuildingName(restaurant.getRest_address().getBuildingName());
+		existAdreess.setCity(restaurant.getRest_address().getCity());
+		existAdreess.setPincode(restaurant.getRest_address().getPincode());
+		existAdreess.setState(restaurant.getRest_address().getState());
+		existAdreess.setStreetNo(restaurant.getRest_address().getStreetNo());
+		
+		addRepo.save(existAdreess);
+		existrestaurant.setRest_address(existAdreess);
+		
+		
+		
 
 		return restRepo.save(existrestaurant);
 	}

@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foodwala.exception.CustomerException;
+import com.foodwala.exception.RestaurantException;
 import com.foodwala.model.Address;
 import com.foodwala.model.Customer;
+import com.foodwala.repository.AddressRepo;
 import com.foodwala.repository.CustomerRepo;
 
 @Service
@@ -17,6 +19,10 @@ public class CustomerServiceImpl implements CustomerService
 
 	@Autowired
 	public CustomerRepo cRepo;
+	
+
+	@Autowired
+	private AddressRepo addRepo;
 
 	@Override
 	public Customer addCustomer(Customer customer) throws CustomerException
@@ -38,6 +44,7 @@ public class CustomerServiceImpl implements CustomerService
 	public Customer updateCustomer(Integer customerId, Customer customer) throws CustomerException
 	{
 		Optional<Customer> cust = cRepo.findById(customerId);
+		
 
 		if (cust.isPresent())
 		{
@@ -49,7 +56,10 @@ public class CustomerServiceImpl implements CustomerService
 			updated.setMobileNumber(customer.getMobileNumber());
 			updated.setPassword(customer.getMobileNumber());
 
-			Address add = new Address();
+			
+			
+			Address add =addRepo.findById(updated.getAddress().getId()).orElseThrow(
+					() -> new CustomerException("customer is not present with this Id ==> " ));
 
 			add.setBuildingName(customer.getAddress().getBuildingName());
 			add.setArea(customer.getAddress().getArea());
@@ -58,6 +68,8 @@ public class CustomerServiceImpl implements CustomerService
 			add.setStreetNo(customer.getAddress().getStreetNo());
 			add.setState(customer.getAddress().getState());
 
+			addRepo.save(add);
+			
 			updated.setAddress(add);
 
 			cRepo.save(updated);

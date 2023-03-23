@@ -23,10 +23,7 @@ public class RestaurantController
 	@Autowired
 	private RestaurantService rService;
 
-	private void name()
-	{
-
-	}
+	
 
 	@PostMapping("/add")
 	public ResponseEntity<Restaurant> addRestaurentHandler(@RequestBody Restaurant restaurant)
