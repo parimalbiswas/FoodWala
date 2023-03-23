@@ -23,6 +23,14 @@ public class RestaurantController
 	@Autowired
 	private RestaurantService rService;
 
+<<<<<<< Updated upstream
+=======
+	private void name1()
+	{
+
+	}
+
+>>>>>>> Stashed changes
 	@PostMapping("/add")
 	public ResponseEntity<Restaurant> addRestaurentHandler(@RequestBody Restaurant restaurant)
 			throws RestaurantException
