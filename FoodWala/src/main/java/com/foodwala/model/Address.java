@@ -33,10 +33,13 @@ public class Address
 
 	private String pincode;
 
+<<<<<<< Updated upstream
 //	@OneToOne(mappedBy = "address")
 //	private Customer customer;
 //
 //    @OneToOne(mappedBy="rest_address")
 //	private Restaurant restaurant;
 
+=======
+>>>>>>> Stashed changes
 }
