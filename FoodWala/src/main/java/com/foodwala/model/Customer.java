@@ -38,5 +38,7 @@ public class Customer
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
+	
+
 
 }
