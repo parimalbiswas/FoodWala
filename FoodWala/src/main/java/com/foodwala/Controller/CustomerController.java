@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,5 +45,17 @@ public class CustomerController {
 		Customer deletedCustomer=cservice.deleteCustomer(cusId);
 		return new ResponseEntity<Customer>(deletedCustomer,HttpStatus.OK);
 	}
-
+	
+	@GetMapping("get/{cusId}")
+	public ResponseEntity<Customer> getCustomerById(@PathVariable Integer cusId) throws CustomerException
+	{
+		Customer Customer=cservice.getcustomerById(cusId);
+		return new ResponseEntity<Customer>(Customer,HttpStatus.OK);
+	}
+	@GetMapping("totalCustomer")
+	public ResponseEntity<Integer> TotalNumberOfCustomer() throws CustomerException
+	{
+		Integer total=cservice.TotalNumberOfCustomerRegistered();
+		return new ResponseEntity<Integer>(total,HttpStatus.OK);
+	}
 }

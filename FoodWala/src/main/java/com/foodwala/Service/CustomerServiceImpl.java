@@ -1,5 +1,6 @@
 package com.foodwala.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,40 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		
 	}
+
+
+	@Override
+	public Customer getcustomerById(Integer customerId) throws CustomerException {
+		Optional<Customer> cust=cRepo.findById(customerId);
+		
+		if(cust.isPresent())
+		{
+			Customer customer=cust.get();
+			
+//			customer.getFirstName();
+//			customer.getLastName();
+//			customer.getMobileNumber();
+			
+			return customer;
+			
+		}
+		else
+		{
+			throw new CustomerException("Nothing found with this id");
+		}
+	}
+
+
+	@Override
+	public Integer TotalNumberOfCustomerRegistered() {
+		List<Customer> registered=cRepo.findAll();
+		
+		return registered.size();
+		
+	}
+
+
+	
 }
 	
 	

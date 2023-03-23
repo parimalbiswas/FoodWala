@@ -11,4 +11,9 @@ public interface CustomerService {
 	public Customer updateCustomer(Integer customerId,Customer customer) throws CustomerException;
 	
 	public Customer deleteCustomer(Integer customerId) throws CustomerException;
+	
+	public Customer getcustomerById(Integer customerId)throws CustomerException;
+	
+	public Integer TotalNumberOfCustomerRegistered();
+	
 }
