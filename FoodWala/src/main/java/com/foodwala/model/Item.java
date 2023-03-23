@@ -31,12 +31,11 @@ public class Item
 	@OneToOne(cascade = CascadeType.ALL)
 	private Category rest_category;
 
-
 	private Integer quantity;
 
 	private Double cost;
 
-	@ManyToMany(cascade = CascadeType.DETACH)
-	private List<Restaurant> restaurant= new ArrayList<>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Restaurant> restaurant = new ArrayList<>();
 
 }

@@ -1,48 +1,64 @@
 package com.foodwala.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foodwala.exception.ItemException;
 import com.foodwala.model.Item;
-import com.foodwala.model.Restaurant;
+import com.foodwala.repository.ItemRepo;
 
 @Service
 public class ItemServiceImpl implements ItemService
 {
+	@Autowired
+	private ItemRepo iRepo;
 
 	@Override
-	public Restaurant addItem(Item item) throws ItemException
+	public Item addItem(Item item) throws ItemException
 	{
-		// TODO Auto-generated method stub
+		return iRepo.save(item);
+
+	}
+
+	@Override
+	public Item updateItem(Item item) throws ItemException
+	{
+
 		return null;
 	}
 
 	@Override
-	public Restaurant updateItem(Item item) throws ItemException
+	public Item deleteItem(Integer item_id) throws ItemException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+		iRepo.deleteById(item_id);
+
+		return item;
+
 	}
 
 	@Override
-	public Restaurant deleteItem(Integer item_id) throws ItemException
+	public Item viewItem(Integer item_id) throws ItemException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+		return item;
 	}
 
 	@Override
-	public Restaurant viewItem(Integer item_id) throws ItemException
+	public List<Item> viewAllItem() throws ItemException
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<Item> items = iRepo.findAll();
 
-	@Override
-	public Restaurant viewAllItem() throws ItemException
-	{
-		// TODO Auto-generated method stub
-		return null;
+		if (items.isEmpty())
+		{
+			throw new ItemException("No Item found");
+		}
+
+		return items;
 	}
 
 }
