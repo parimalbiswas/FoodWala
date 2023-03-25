@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService
 //				throw new LoginException("Session Already Exist== You aldeasy loged in");
 //			}
 //
-//			// return null;
+//			
 //		}
 
 		if (customers.getPassword().equals(dto.getPassword()))
@@ -77,7 +77,6 @@ public class LoginServiceImpl implements LoginService
 				throw new LoginException("Session Already Exist== You aldeasy loged in");
 			}
 
-			// return null;
 		}
 		else
 		{
