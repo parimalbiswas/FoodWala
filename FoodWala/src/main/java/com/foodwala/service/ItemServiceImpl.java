@@ -37,7 +37,7 @@ public class ItemServiceImpl implements ItemService
 		}
 		else
 		{
-			throw new ItemException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+			throw new LoginException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
 		}
 
 	}
@@ -45,57 +45,138 @@ public class ItemServiceImpl implements ItemService
 	@Override
 	public Item updateItem(Item item, String key) throws ItemException, LoginException
 	{
-		Item existItem = iRepo.findById(item.getItem_Id())
-				.orElseThrow(() -> new ItemException("Item not found with this Id"));
 
-		existItem.setCost(item.getCost());
-		existItem.setItem_names(item.getItem_names());
-		existItem.setQuantity(item.getQuantity());
-		existItem.setRest_category(item.getRest_category());
+		CurrentUserSession existSession = cSessionRepo.findByUuid(key);
 
-		return iRepo.save(existItem);
+		if (existSession == null)
+		{
+			throw new LoginException("Admin Not Loged In");
+		}
+
+		if (existSession.getKonhai().equals("ADMIN"))
+		{
+
+			Item existItem = iRepo.findById(item.getItem_Id())
+					.orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+			existItem.setCost(item.getCost());
+			existItem.setItem_names(item.getItem_names());
+			existItem.setQuantity(item.getQuantity());
+			existItem.setRest_category(item.getRest_category());
+
+			return iRepo.save(existItem);
+		}
+		else
+		{
+			throw new LoginException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+		}
+
 	}
 
 	@Override
 	public Item deleteItem(Integer item_id, String key) throws ItemException, LoginException
 	{
-		Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
 
-		iRepo.deleteById(item_id);
+		CurrentUserSession existSession = cSessionRepo.findByUuid(key);
 
-		return item;
+		if (existSession == null)
+		{
+			throw new LoginException("Admin Not Loged In");
+		}
+
+		if (existSession.getKonhai().equals("ADMIN"))
+		{
+			Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+			iRepo.deleteById(item_id);
+
+			return item;
+		}
+		else
+		{
+			throw new LoginException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+		}
 
 	}
 
 	@Override
 	public Item viewItem(Integer item_id, String key) throws ItemException, LoginException
 	{
-		Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
 
-		return item;
+		CurrentUserSession existSession = cSessionRepo.findByUuid(key);
+
+		if (existSession == null)
+		{
+			throw new LoginException("Admin Not Loged In");
+		}
+
+		if (existSession.getKonhai().equals("ADMIN"))
+		{
+			Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+			return item;
+		}
+		else
+		{
+			throw new LoginException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+		}
+
 	}
 
 	@Override
 	public List<Item> viewAllItem(String key) throws ItemException, LoginException
 	{
-		List<Item> items = iRepo.findAll();
 
-		if (items.isEmpty())
+		CurrentUserSession existSession = cSessionRepo.findByUuid(key);
+
+		if (existSession == null)
 		{
-			throw new ItemException("No Item found");
+			throw new LoginException("Admin Not Loged In");
 		}
 
-		return items;
+		if (existSession.getKonhai().equals("ADMIN"))
+		{
+			List<Item> items = iRepo.findAll();
+
+			if (items.isEmpty())
+			{
+				throw new ItemException("No Item found");
+			}
+
+			return items;
+		}
+		else
+		{
+			throw new ItemException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+		}
+
 	}
 
 	@Override
 	public Item increaseQuantityItem(Integer qnty, Integer item_id, String key) throws ItemException, LoginException
 	{
-		Item existItem = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
 
-		existItem.setQuantity(qnty);
+		CurrentUserSession existSession = cSessionRepo.findByUuid(key);
 
-		return iRepo.save(existItem);
+		if (existSession == null)
+		{
+			throw new LoginException("Admin Not Loged In");
+		}
+
+		if (existSession.getKonhai().equals("ADMIN"))
+		{
+			Item existItem = iRepo.findById(item_id)
+					.orElseThrow(() -> new ItemException("Item not found with this Id"));
+
+			existItem.setQuantity(qnty);
+
+			return iRepo.save(existItem);
+		}
+		else
+		{
+			throw new LoginException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+		}
+
 	}
 
 }
