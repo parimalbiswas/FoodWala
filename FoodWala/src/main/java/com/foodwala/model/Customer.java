@@ -1,12 +1,12 @@
 package com.foodwala.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class Customer
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer customer_id;
 
 	private String firstName;
 
@@ -35,10 +35,11 @@ public class Customer
 
 	private String password;
 
-	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
-	
 
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cart cart;
 
 }

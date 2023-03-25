@@ -19,18 +19,17 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
+public class Cart
+{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cartId;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	private Customer customer;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
-    private List<Item> itemList;
-	
-	
+	private List<Item> itemList;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Customer customer;
 
 }

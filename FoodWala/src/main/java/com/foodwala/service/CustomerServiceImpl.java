@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foodwala.exception.CustomerException;
-import com.foodwala.exception.RestaurantException;
 import com.foodwala.model.Address;
 import com.foodwala.model.Customer;
 import com.foodwala.repository.AddressRepo;
@@ -19,7 +18,6 @@ public class CustomerServiceImpl implements CustomerService
 
 	@Autowired
 	public CustomerRepo cRepo;
-	
 
 	@Autowired
 	private AddressRepo addRepo;
@@ -27,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService
 	@Override
 	public Customer addCustomer(Customer customer) throws CustomerException
 	{
-		Customer c = cRepo.findByMobileNumber(customer.getMobileNumber());
+		Customer c = (Customer) cRepo.findByMobileNumber(customer.getMobileNumber());
 		if (c == null)
 		{
 			Customer newCustomer = cRepo.save(customer);
@@ -44,7 +42,6 @@ public class CustomerServiceImpl implements CustomerService
 	public Customer updateCustomer(Integer customerId, Customer customer) throws CustomerException
 	{
 		Optional<Customer> cust = cRepo.findById(customerId);
-		
 
 		if (cust.isPresent())
 		{
@@ -56,10 +53,8 @@ public class CustomerServiceImpl implements CustomerService
 			updated.setMobileNumber(customer.getMobileNumber());
 			updated.setPassword(customer.getMobileNumber());
 
-			
-			
-			Address add =addRepo.findById(updated.getAddress().getId()).orElseThrow(
-					() -> new CustomerException("customer is not present with this Id ==> " ));
+			Address add = addRepo.findById(updated.getAddress().getId())
+					.orElseThrow(() -> new CustomerException("customer is not present with this Id ==> "));
 
 			add.setBuildingName(customer.getAddress().getBuildingName());
 			add.setArea(customer.getAddress().getArea());
@@ -69,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService
 			add.setState(customer.getAddress().getState());
 
 			addRepo.save(add);
-			
+
 			updated.setAddress(add);
 
 			cRepo.save(updated);
@@ -103,21 +98,21 @@ public class CustomerServiceImpl implements CustomerService
 
 	}
 
-
 	@Override
-	public Customer getcustomerById(Integer customerId) throws CustomerException {
-		Optional<Customer> cust=cRepo.findById(customerId);
-		
-		if(cust.isPresent())
+	public Customer getcustomerById(Integer customerId) throws CustomerException
+	{
+		Optional<Customer> cust = cRepo.findById(customerId);
+
+		if (cust.isPresent())
 		{
-			Customer customer=cust.get();
-			
+			Customer customer = cust.get();
+
 //			customer.getFirstName();
 //			customer.getLastName();
 //			customer.getMobileNumber();
-			
+
 			return customer;
-			
+
 		}
 		else
 		{
@@ -125,15 +120,13 @@ public class CustomerServiceImpl implements CustomerService
 		}
 	}
 
-
 	@Override
-	public Integer TotalNumberOfCustomerRegistered() {
-		List<Customer> registered=cRepo.findAll();
-		
+	public Integer TotalNumberOfCustomerRegistered()
+	{
+		List<Customer> registered = cRepo.findAll();
+
 		return registered.size();
-		
+
 	}
 
-
-	
 }
