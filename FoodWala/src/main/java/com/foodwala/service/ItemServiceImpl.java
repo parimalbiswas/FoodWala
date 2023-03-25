@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foodwala.exception.ItemException;
+import com.foodwala.exception.LoginException;
+import com.foodwala.model.CurrentUserSession;
 import com.foodwala.model.Item;
+import com.foodwala.repository.CurrentUserSessionRepo;
 import com.foodwala.repository.ItemRepo;
 
 @Service
@@ -15,14 +18,32 @@ public class ItemServiceImpl implements ItemService
 	@Autowired
 	private ItemRepo iRepo;
 
+	@Autowired
+	private CurrentUserSessionRepo cSessionRepo;
+
 	@Override
-	public Item addItem(Item item) throws ItemException
+	public Item addItem(Item item, String key) throws ItemException, LoginException
 	{
-		return iRepo.save(item);
+		CurrentUserSession existSession = cSessionRepo.findByUuid(key);
+
+		if (existSession == null)
+		{
+			throw new LoginException("Admin Not Loged In");
+		}
+
+		if (existSession.getKonhai().equals("ADMIN"))
+		{
+			return iRepo.save(item);
+		}
+		else
+		{
+			throw new ItemException("Only Admin are allowed to add Item. ==== You ARE NOTY ADMIN");
+		}
+
 	}
 
 	@Override
-	public Item updateItem(Item item) throws ItemException
+	public Item updateItem(Item item, String key) throws ItemException, LoginException
 	{
 		Item existItem = iRepo.findById(item.getItem_Id())
 				.orElseThrow(() -> new ItemException("Item not found with this Id"));
@@ -36,7 +57,7 @@ public class ItemServiceImpl implements ItemService
 	}
 
 	@Override
-	public Item deleteItem(Integer item_id) throws ItemException
+	public Item deleteItem(Integer item_id, String key) throws ItemException, LoginException
 	{
 		Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
 
@@ -47,7 +68,7 @@ public class ItemServiceImpl implements ItemService
 	}
 
 	@Override
-	public Item viewItem(Integer item_id) throws ItemException
+	public Item viewItem(Integer item_id, String key) throws ItemException, LoginException
 	{
 		Item item = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
 
@@ -55,7 +76,7 @@ public class ItemServiceImpl implements ItemService
 	}
 
 	@Override
-	public List<Item> viewAllItem() throws ItemException
+	public List<Item> viewAllItem(String key) throws ItemException, LoginException
 	{
 		List<Item> items = iRepo.findAll();
 
@@ -68,7 +89,7 @@ public class ItemServiceImpl implements ItemService
 	}
 
 	@Override
-	public Item increaseQuantityItem(Integer qnty, Integer item_id) throws ItemException
+	public Item increaseQuantityItem(Integer qnty, Integer item_id, String key) throws ItemException, LoginException
 	{
 		Item existItem = iRepo.findById(item_id).orElseThrow(() -> new ItemException("Item not found with this Id"));
 
