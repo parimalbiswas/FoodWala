@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodwala.exception.ItemException;
@@ -28,47 +29,50 @@ public class ItemController
 	private ItemService iService;
 
 	@PostMapping("/add")
-	public ResponseEntity<Item> addItemHandler(@RequestBody Item item) throws ItemException, LoginException
+	public ResponseEntity<Item> addItemHandler(@RequestBody Item item, @RequestParam("key") String key)
+			throws ItemException, LoginException
 	{
-		Item addedItem = iService.addItem(item, null);
+		Item addedItem = iService.addItem(item, key);
 		return new ResponseEntity<>(addedItem, HttpStatus.ACCEPTED);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Item> updateItemHandler(@RequestBody Item item) throws ItemException, LoginException
+	public ResponseEntity<Item> updateItemHandler(@RequestBody Item item, @RequestParam("key") String key)
+			throws ItemException, LoginException
 	{
-		Item updateItem = iService.updateItem(item, null);
+		Item updateItem = iService.updateItem(item, key);
 		return new ResponseEntity<>(updateItem, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Item> deleteItemHandler(@PathVariable("id") Integer item_Id)
+	public ResponseEntity<Item> deleteItemHandler(@PathVariable("id") Integer item_Id, @RequestParam("key") String key)
 			throws ItemException, LoginException
 	{
-		Item delItem = iService.deleteItem(item_Id, null);
+		Item delItem = iService.deleteItem(item_Id, key);
 		return new ResponseEntity<>(delItem, HttpStatus.OK);
 	}
 
 	@GetMapping("/view/{id}")
-	public ResponseEntity<Item> viewItemHandler(@PathVariable("id") Integer item_Id)
+	public ResponseEntity<Item> viewItemHandler(@PathVariable("id") Integer item_Id, @RequestParam("key") String key)
 			throws ItemException, LoginException
 	{
-		Item item = iService.viewItem(item_Id, null);
+		Item item = iService.viewItem(item_Id, key);
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 
 	@GetMapping("/view/all")
-	public ResponseEntity<List<Item>> viewAllItemHandler() throws ItemException, LoginException
+	public ResponseEntity<List<Item>> viewAllItemHandler(@RequestParam("key") String key)
+			throws ItemException, LoginException
 	{
-		List<Item> items = iService.viewAllItem(null);
+		List<Item> items = iService.viewAllItem(key);
 		return new ResponseEntity<>(items, HttpStatus.OK);
 	}
 
 	@PatchMapping("/update/quantity/{item_id}/{qnty}")
 	public ResponseEntity<Item> increaseQuantityHandler(@PathVariable("item_id") Integer item_Id,
-			@PathVariable("qnty") Integer qmty) throws ItemException, LoginException
+			@PathVariable("qnty") Integer qmty, @RequestParam("key") String key) throws ItemException, LoginException
 	{
-		Item items = iService.increaseQuantityItem(qmty, item_Id, null);
+		Item items = iService.increaseQuantityItem(qmty, item_Id, key);
 
 		return new ResponseEntity<>(items, HttpStatus.OK);
 	}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodwala.exception.LoginException;
@@ -35,26 +36,26 @@ public class RestaurantController
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Restaurant> updateRestaurentHandler(@RequestBody Restaurant restaurant)
-			throws RestaurantException, LoginException
+	public ResponseEntity<Restaurant> updateRestaurentHandler(@RequestBody Restaurant restaurant,
+			@RequestParam("key") String key) throws RestaurantException, LoginException
 	{
-		Restaurant updateRestaurant = rService.updateRestaurant(restaurant, null);
+		Restaurant updateRestaurant = rService.updateRestaurant(restaurant, key);
 		return new ResponseEntity<>(updateRestaurant, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Restaurant> deleteRestaurentHandler(@PathVariable("id") Integer rest_Id)
-			throws RestaurantException, LoginException
+	public ResponseEntity<Restaurant> deleteRestaurentHandler(@PathVariable("id") Integer rest_Id,
+			@RequestParam("key") String key) throws RestaurantException, LoginException
 	{
-		Restaurant deleteRestaurant = rService.deleteRestaurant(rest_Id, null);
+		Restaurant deleteRestaurant = rService.deleteRestaurant(rest_Id, key);
 		return new ResponseEntity<>(deleteRestaurant, HttpStatus.OK);
 	}
 
 	@GetMapping("/view/{id}")
-	public ResponseEntity<Restaurant> viewRestaurentHandler(@PathVariable("id") Integer rest_Id)
-			throws RestaurantException, ResolutionException, LoginException
+	public ResponseEntity<Restaurant> viewRestaurentHandler(@PathVariable("id") Integer rest_Id,
+			@RequestParam("key") String key) throws RestaurantException, ResolutionException, LoginException
 	{
-		Restaurant Restaurant = rService.viewRestaurant(rest_Id, null);
+		Restaurant Restaurant = rService.viewRestaurant(rest_Id, key);
 		return new ResponseEntity<>(Restaurant, HttpStatus.OK);
 	}
 
