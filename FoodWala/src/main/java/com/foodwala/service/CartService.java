@@ -6,7 +6,10 @@ import com.foodwala.model.Cart;
 
 public interface CartService {
 	
-	public Cart saveCart(Cart cart) ;
+	public Cart saveCart(String uuid,Cart cart) ;
+
+	
+	
 	
 
 }
